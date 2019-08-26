@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace DataBase.Models
@@ -6,6 +7,7 @@ namespace DataBase.Models
     {
         
         public string Name { get; set; }
+        public List<Client> Clients { get; set; }
         public string Specialty { get; set; }
         public int StylistId { get; set; }
     }

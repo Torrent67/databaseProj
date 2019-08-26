@@ -10,12 +10,12 @@
 <h3>@Html.DisplayNameFor(model => model.Name): @Html.DisplayFor(model => model.Name)</h3>
 
 <ul>
-@if (@Model.Clients.Count == 0)
+@if (@Model.Clients.Count() == 0)
 {
   <p>no clients found</p>
 }
 
-@foreach (Client client in @Model.Clients)
+@foreach (Client client in Model.Clients)
 {
   <li>Description: @client.Description</li>
 }

@@ -18,7 +18,7 @@ namespace DataBase.Controllers
 
     public ActionResult Index()
     {
-      List<Client> model = _db.Clients.Include(client => client.Stylists).ToList();
+      List<Client> model = _db.Clients.Include(client => client.Stylist).ToList();
       return View(model);
     }
 
