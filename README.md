@@ -26,6 +26,11 @@ User can add and edit stylists, clients. Then see which clients are seeing which
 
 * Clone repository from GitHub, once cloned to your desktop navigate into the folder and run the command "dotnet restore" in the command line, then "dotnet run".
 
+* CREATE DATABASE Marqis_Ramos;	
+* USE Marqis_Ramos;	
+* CREATE TABLE stylists (StylistId serial PRIMARY KEY, Name VARCHAR(255), Specialty VARCHAR(255));	
+* CREATE TABLE clients (ClientId serial PRIMARY KEY, FirstName VARCHAR(255), LastName VARCHAR(255), StylistId INT(11));
+
 ## Known Bugs
 * no known bugs at this time.
 
