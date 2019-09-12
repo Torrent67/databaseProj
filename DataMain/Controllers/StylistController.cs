@@ -1,72 +1,46 @@
 using Microsoft.AspNetCore.Mvc;
 using DataBase.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataBase.Controllers
 {
-  public class StylistsController : Controller
-  {
-    private readonly DataBaseContext _db;
-
-    public StylistsController(DataBaseContext db)
+    public class StylistController : Controller
     {
-      _db = db;
-    }
+        private readonly DataBaseContext _db;
+        public StylistController(DataBaseContext db)
+        {
+            _db = db;
+        }
 
-    public ActionResult Index()
-    {
-      List<Stylist> model = _db.Stylists.ToList();
-      return View(model);
-    }
 
-    public ActionResult Create()
-    {
-      return View();
-    }
+        public ActionResult Index()
+        {
+            List<Stylist> model = _db.Stylists.ToList();
+            return View(model);
+        }
 
-    [HttpPost]
-    public ActionResult Create(Stylist stylist)
-    {
-      _db.Stylists.Add(stylist);
-      _db.SaveChanges();
-      return RedirectToAction("Index");
-    }
+        public ActionResult Create()
+        {
+            return View();
+        }
 
-    public ActionResult Details(int id)
-    {
-      Stylist thisStylist = _db.Stylists.FirstOrDefault(stylist => stylist.StylistId == id);
-      return View(thisStylist);
-    }
+        [HttpPost]
+        public ActionResult Create(Stylist stylist)
+        {
+            _db.Stylists.Add(stylist);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
+        }
 
-    public ActionResult Edit(int id)
-    {
-      var thisStylist = _db.Stylists.FirstOrDefault(stylist => stylist.StylistId == id);
-      return View(thisStylist);
+        public ActionResult Details(int id)
+        {
+            Stylist stylist = _db.Stylists.FirstOrDefault(sty => sty.StylistId == id);
+            List<Client> clientList = _db.Clients.Where(clients => clients.StylistId == id).ToList();
+            ViewBag.clientList = clientList;
+            return View(stylist);
+        }
     }
-
-    [HttpPost]
-    public ActionResult Edit(Stylist stylist)
-    {
-      _db.Entry(stylist).State = EntityState.Modified;
-      _db.SaveChanges();
-      return RedirectToAction("Index");
-    }
-
-    public ActionResult Delete(int id)
-    {
-      var thisStylist = _db.Stylists.FirstOrDefault(stylist => stylist.StylistId == id);
-      return View(thisStylist);
-    }
-
-    [HttpPost, ActionName("Delete")]
-    public ActionResult DeleteConfirmed(int id)
-    {
-      var thisStylist = _db.Stylists.FirstOrDefault(stylist => stylist.StylistId == id);
-      _db.Stylists.Remove(thisStylist);
-      _db.SaveChanges();
-      return RedirectToAction("Index");
-    }
-  }
 }
